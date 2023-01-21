@@ -10,22 +10,14 @@ DWORD GetProcId(const char *procName) {
 
 	HANDLE hSnap= CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
 
-
 	if (hSnap != INVALID_HANDLE_VALUE) {
-
 		PROCESSENTRY32 procEntry;
-
 		procEntry.dwSize = sizeof(procEntry);
 
-
 		if (Process32First(hSnap, &procEntry)) {
-
 			do {
-
 				if (!_stricmp(procEntry.szExeFile, procName)) {
-
 					procId = procEntry.th32ProcessID;
-
 					break;
 				}
 			} while (Process32Next(hSnap, &procEntry));
@@ -33,9 +25,7 @@ DWORD GetProcId(const char *procName) {
 	}
 
 	CloseHandle(hSnap);
-
 	return procId;
-
 }
 
 
@@ -51,7 +41,7 @@ void Inject(DWORD procId) {
 	
 
 	hProc=OpenProcess(PROCESS_ALL_ACCESS, 1, procId);
-
+	
 	if (hProc == INVALID_HANDLE_VALUE) {
 
 		std::cout << "Error in opening handle to program" << std::endl;
